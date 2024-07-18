@@ -4,8 +4,8 @@ on:
     branches: [ main ]
 jobs:
   copyfile:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Copy heraldex.js to examples
-        run: copy heraldex.js example\Timedex\heraldex.js
+        run: cp heraldex.js example/Timedex/heraldex.js
         
