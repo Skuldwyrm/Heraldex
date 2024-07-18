@@ -88,4 +88,4 @@ By default, Heraldex checks for modifications to the main page every hour (3600 
 
 ## License
 
-Heraldex is licensed under [MIT](license).
+Heraldex is licensed under [MIT](license.md).
