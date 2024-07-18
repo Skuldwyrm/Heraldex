@@ -46,7 +46,7 @@ If you do not like this way of dointg it by permanently hiding the mouse pointer
 ## Installation
 
 1. Clone the repository to your local machine.
-2. Due to CORS restrictions, the Timedex demo needs to be run on a web server. You can set up a simple local web server using Python or Node.js.
+2. Due to CORS restrictions, the Timedex demo needs to be run on a web server. You can set up a simple local web server using Python or Node.js or PHP.
 
 ## Usage
 
@@ -88,4 +88,4 @@ By default, Heraldex checks for modifications to the main page every hour (3600 
 
 ## License
 
-Heraldex is licensed under [MIT](license).
+Heraldex is licensed under [MIT](license.md).
