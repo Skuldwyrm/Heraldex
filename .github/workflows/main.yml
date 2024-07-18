@@ -1,3 +1,4 @@
+name: Heraldex Build
 on:
   push:
     branches: [ main ]
