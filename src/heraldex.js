@@ -1,14 +1,8 @@
 // Heraldex 1.0
 // Copyright ©️2024 Roger Skuldwyrm Hågensen
 
-// Usage: let heraldex = new Heraldex('slideshow_div', 'heraldex.json');
-// This class can be inlined, or included using: <script src="heraldex.js">
-// Usage: let heraldex = new Heraldex('slideshow_div', 'heraldex.json');
-// Options: let heraldex = new Heraldex('slideshow_div', 'heraldex.json', {refresh: 900, reload: 3600, duration: 300 });
-// Alternative
 // Usage: Heraldex.create('slideshow_div', 'heraldex.json');
 // Options: Heraldex.create('slideshow_div', 'heraldex.json', {refresh: 900, reload: 3600, duration: 300 });
-
 class Heraldex {
   constructor(elementid, dexfile, options = {}) {
     this.refresh =
