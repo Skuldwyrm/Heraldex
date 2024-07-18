@@ -1,0 +1,16 @@
+Raspberry Pi OS with Wayland, run Chromium in kiosk mode:
+
+Create a script to launch Chromium: Create a script named kiosk.sh in your home directory1. The content of the script should be1:
+#!/bin/bash
+/usr/share/chromium-browser/chromium-browser --enable-pinch --fast --fast-start --start-maximised --kiosk --noerrdialogs --disable-translate --no-first-run --disable-pinch --overscroll-history-navigation=disabled --disable-features=TouchpadOverscrollHistoryNavigation --disable-restore-session-state --disable-infobars --kiosk --enable-crashpad --ozone-platform=wayland 'https://your-url.com'
+Replace 'https://your-url.com' with the URL you want to display1. Make the script executable with the command chmod +x /home/pi/kiosk.sh1.
+Edit Wayland/Wayfire Configuration: Edit the Wayland/Wayfire user configuration file so that when the desktop loads, it will launch the kiosk.sh script and start Chromium in full-screen mode1. The configuration should look like this2:
+[autostart]
+kiosk = /home/pi/kiosk.sh
+Save and close the file.
+Reboot: Finally, reboot your Raspberry Pi for the changes to take effect.
+
+
+
+Use this tool to convert/fix fonts that have "wrong" line spacing/height on Raspberry Pi vs Windows etc.
+https://www.fontsquirrel.com/tools/webfont-generator

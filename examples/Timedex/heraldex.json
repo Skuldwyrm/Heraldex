@@ -1,0 +1,18 @@
+{   "reload": 3600,
+    "refresh": 900,
+    "dex":
+    [
+        {
+            "url": "bg/bg1.html",
+            "duration": 60
+        },
+        {
+            "url": "bg/bg2.html",
+            "duration": 60
+        },
+        {
+            "url": "bg/bg3.html",
+            "duration": 60
+        }
+    ]
+}
