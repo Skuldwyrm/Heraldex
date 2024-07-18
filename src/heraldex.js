@@ -3,6 +3,7 @@
 
 // Usage: Heraldex.create('slideshow_div', 'heraldex.json');
 // Options: Heraldex.create('slideshow_div', 'heraldex.json', {refresh: 900, reload: 3600, duration: 300 });
+
 class Heraldex {
   constructor(elementid, dexfile, options = {}) {
     this.refresh =
