@@ -1,0 +1,10 @@
+on:
+  push:
+    branches: [ main ]
+jobs:
+  containercopyfiletest-job:
+    runs-on: windows-latest
+    steps:
+      - name: Copy heraldex.js to examples
+        run: copy heraldex.js example\Timedex\heraldex.js
+        
