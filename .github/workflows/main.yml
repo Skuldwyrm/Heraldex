@@ -1,11 +1,9 @@
 name: Heraldex Build
 on:
   push:
-    branches: main
 jobs:
   copyfile:
     runs-on: ubuntu-latest
     steps:
       - name: Copy heraldex.js to examples
         run: cp heraldex.js example/Timedex/heraldex.js
-        
