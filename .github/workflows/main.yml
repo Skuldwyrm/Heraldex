@@ -2,7 +2,7 @@ on:
   push:
     branches: [ main ]
 jobs:
-  containercopyfiletest-job:
+  copyfile:
     runs-on: windows-latest
     steps:
       - name: Copy heraldex.js to examples
