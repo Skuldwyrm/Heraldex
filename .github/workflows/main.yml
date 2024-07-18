@@ -4,9 +4,8 @@ on:
 jobs:
   copyfile:
     runs-on: ubuntu-latest
-    paths:
-      - 'src/heraldex.js'
     steps:
+      - uses: actions/checkout@v2
       - name: Copy heraldex.js to examples
         run:  |
           cp src/heraldex.js example/Timedex/heraldex.js
