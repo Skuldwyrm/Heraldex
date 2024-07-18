@@ -1,7 +1,7 @@
 name: Heraldex Build
 on:
   push:
-    branches: [ main ]
+    branches: main
 jobs:
   copyfile:
     runs-on: ubuntu-latest
