@@ -1,11 +1,13 @@
 name: Heraldex Build
 on:
   push:
+    paths:
+    - 'src/heraldex.js'
 jobs:
   copyfile:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Copy heraldex.js to examples
-        run:  |
-          cp src/heraldex.js example/Timedex/heraldex.js
+    - uses: actions/checkout@v2
+    - name: Copy heraldex.js to examples
+      run:  |
+        cp src/heraldex.js example/Timedex/heraldex.js
