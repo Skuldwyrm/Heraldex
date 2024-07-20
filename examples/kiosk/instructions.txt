@@ -1,0 +1,33 @@
+Copy the clientside\kiosk.html file to your infodisplay device (Raspberry Pi).
+
+Change the data-url to point to where the php serverside script is hosted.
+Change the data-id to what you wish to use as listed in kiosk.json on the server.
+
+<iframe
+  id="kiosk"
+  data-url="http://example.com/kiosk/"
+  data-id="kiosk_test_1"
+></iframe>
+
+
+The json file is simple, it has just the id and a url that will be loaded into the iframe.
+
+{
+    "kiosk_test_1": "http://example.com/timedex/"
+}
+
+When the PHP script is fetched by the kiosk page it will check the url for the given ID and either return an error or no error.
+The kiosk script it if receive and error will wait 5 minutes then call the script again.
+
+The intention for this kiosk html and PHP pairing is to hopefully have a robust kiosk "loader".
+While the Timedex example is robust enough, it relies on the browser to retry if there is a network issue and the page wont load.
+In this kiosk example a local html file is on the display device, so there will be working running code running, which can call the script and check if the iframe url is reachable.
+This avoids the issue one might have with CORS or a limited amount of automatic retries of a server hosted kiosk page.
+This does however mean that any code change to the kiosk.html will require the file to be pushed to the display device and a manual reload to be made.
+But as it is just a simple wrapper it should rarely need changes.
+
+So deployment would be to push out the kiosk.html file with the data url and data id edited, and the kiosk.json file to have that id in it's list with a reachable url.
+The page that is loaded into the iframe can be anything, you could display Timedex in it if desired.
+
+The benefits of this kiosk example is also it's drawback, it requires a file hosted on the display device, and a serverside script, and some added complexity.
+In contrast Timedex are just static files that you just point a browser at, but it has no means to reload/refresh itself in case of loading isues or network issues.

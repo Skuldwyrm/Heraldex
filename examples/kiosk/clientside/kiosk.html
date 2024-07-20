@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Kiosk</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      html,
+      body {
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        background-color: #000;
+        color: #fff;
+        width: 100vw;
+        height: 100vh;
+        box-sizing: border-box;
+      }
+      #kiosk {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+    </style>
+    <script>
+      let kioskIframe = null;
+      let kioskUrl = null;
+      let kioskId = null;
+      const interval = 5 * 60 * 1000;
+      const intervalInMinutes = interval / 1000 / 60;
+
+      function init() {
+        kioskIframe = document.getElementById("kiosk");
+        kioskUrl = kioskIframe.dataset.url;
+        kioskId = kioskIframe.dataset.id;
+        fetchKioskData();
+      }
+
+      function createSrcdocContent(countdown, pageid, error) {
+        return `
+          <style>body { background-color: #000; color: #c00; font-size: 5vw; font-family: sans-serif; text-align: center; }</style>
+          <p>Page "${pageid}" unavailable.<br><br>Retrying in ${countdown} minutes...<br><br>${error}</p>
+        `;
+      }
+
+      function startRetryCountdown(countdown, pageid, error) {
+        kioskIframe.srcdoc = createSrcdocContent(countdown, pageid, error);
+        const countdownTimer = setInterval(() => {
+          countdown--;
+          if (countdown <= 1) {
+            clearInterval(countdownTimer);
+          }
+          kioskIframe.srcdoc = createSrcdocContent(countdown, pageid, error);
+        }, 60 * 1000);
+      }
+
+      async function fetchKioskData() {
+        try {
+          const response = await fetch(kioskUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              id: kioskId,
+            }),
+          });
+
+          if (!response.ok) {
+            startRetryCountdown(
+              intervalInMinutes,
+              kioskId,
+              `HTTP error ${response.status}`
+            );
+            kioskIframe.src = kioskIframe.src + "?t=" + new Date().getTime();
+            return;
+          }
+          const data = await response.json();
+
+          if (data.error) {
+            startRetryCountdown(intervalInMinutes, kioskId, data.error);
+            kioskIframe.src = kioskIframe.src + "?t=" + new Date().getTime();
+          } else if (data.url && data.url !== kioskIframe.src) {
+            kioskIframe.src = data.url;
+            kioskIframe.removeAttribute("srcdoc");
+          }
+        } catch (error) {
+          console.error("Fetch failed:", error);
+          startRetryCountdown(intervalInMinutes, kioskId, "No valid data");
+          kioskIframe.src = kioskIframe.src + "?t=" + new Date().getTime();
+        } finally {
+          setTimeout(fetchKioskData, interval);
+        }
+      }
+
+      window.addEventListener("DOMContentLoaded", init);
+    </script>
+  </head>
+  <body>
+    <iframe
+      id="kiosk"
+      data-url="http://example.com/kiosk/"
+      data-id="kiosk_test_1"
+    ></iframe>
+  </body>
+</html>
